@@ -30,8 +30,13 @@ class BatchRenorm(Layer):
             self.mu_prev = tf.get_variable("mu_prev", [self.channels], tf.float32, initializer=tf.zeros_initializer, trainable=False)
             self.sigma_prev = tf.get_variable("sigma_prev", [self.channels], tf.float32, initializer=tf.ones_initializer, trainable=False)
 
+
+        '''
+            tf.cond(true or false, true function, false function)
+        '''
         result = tf.cond(training, lambda: self.train(input, self.mu, self.sigma, momentum),
                          lambda: self.gamma * ((input - self.mu) / self.sigma) + self.beta)
+
         return result
 
 

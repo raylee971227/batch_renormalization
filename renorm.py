@@ -27,8 +27,8 @@ class BatchRenorm(Layer):
             self.mu = tf.get_variable("mu", [self.channels], tf.float32, trainable=False)
             self.sigma = tf.get_variable("sigma", [self.channels], tf.float32, trainable=False)
 
-            mu_prev = tf.get_variable("mu_prev", [self.channels], tf.float32, initializer=tf.zeros_initializer, trainable=False)
-            sigma_prev = tf.get_variable("sigma_prev", [self.channels], tf.float32, initializer=tf.ones_initializer, trainable=False)
+            self.mu_prev = tf.get_variable("mu_prev", [self.channels], tf.float32, initializer=tf.zeros_initializer, trainable=False)
+            self.sigma_prev = tf.get_variable("sigma_prev", [self.channels], tf.float32, initializer=tf.ones_initializer, trainable=False)
 
         result = tf.cond(training, lambda: self.train(input, self.mu, self.sigma, momentum),
                          lambda: self.gamma * ((input - self.mu) / self.sigma) + self.beta)
@@ -46,10 +46,10 @@ class BatchRenorm(Layer):
         batch_mean, batch_var = tf.nn.moments(input_reshaped, [0, 1, 2, 3], keep_dims=True)
         batch_stddev = tf.sqrt(batch_var)
 
-        mu_asgn_old = tf.Variable(mu, name="mu_save")
+        mu_asgn_old = tf.Variable(self.mu_prev, name="mu_save")
         mu_asgn_old.assign(mu)  # might be unnecessary
 
-        sigma_asgn_old = tf.Variable(sigma, name="sigma_save")
+        sigma_asgn_old = tf.Variable(self.sigma_prev, name="sigma_save")
         sigma_asgn_old = tf.assign(sigma)  # might be unnecessary again. Check https://stackoverflow.com/questions/57311982/equivalent-of-tf-assign-in-tensorflow-2-0-beta1
 
         with(tf.control_dependencies([mu_asgn_old, sigma_asgn_old])):

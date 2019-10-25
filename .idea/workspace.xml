@@ -15,8 +15,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/renorm.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="517">
-              <caret line="37" lean-forward="true" selection-end-line="81" />
+            <state relative-caret-position="537">
+              <caret line="58" column="63" selection-end-line="81" />
               <folding>
                 <element signature="e#0#23#0" expanded="true" />
               </folding>
@@ -41,17 +41,8 @@
       <list>
         <option value="$PROJECT_DIR$/venv/batch_renormalization.py" />
         <option value="$PROJECT_DIR$/venv/network.py" />
+        <option value="$PROJECT_DIR$/conv_2d_bn.py" />
         <option value="$PROJECT_DIR$/renorm.py" />
-      </list>
-    </option>
-  </component>
-  <component name="ProjectConfigurationFiles">
-    <option name="files">
-      <list>
-        <option value="$PROJECT_DIR$/.idea/midterm.iml" />
-        <option value="$PROJECT_DIR$/.idea/misc.xml" />
-        <option value="$PROJECT_DIR$/.idea/modules.xml" />
-        <option value="$PROJECT_DIR$/.idea/vcs.xml" />
       </list>
     </option>
   </component>
@@ -85,6 +76,7 @@
     </panes>
   </component>
   <component name="PropertiesComponent">
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
@@ -113,12 +105,12 @@
       <option name="presentableId" value="Default" />
       <updated>1572031432304</updated>
       <workItem from="1572031435803" duration="1604000" />
-      <workItem from="1572033602864" duration="3279000" />
+      <workItem from="1572033602864" duration="3691000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="4883000" />
+    <option name="totallyTimeSpent" value="5295000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="22" width="1680" height="990" extended-state="0" />
@@ -155,10 +147,13 @@
     <entry file="file://$PROJECT_DIR$/venv/network.py">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
+    <entry file="file://$PROJECT_DIR$/conv_2d_bn.py">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
     <entry file="file://$PROJECT_DIR$/renorm.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="517">
-          <caret line="37" lean-forward="true" selection-end-line="81" />
+        <state relative-caret-position="537">
+          <caret line="58" column="63" selection-end-line="81" />
           <folding>
             <element signature="e#0#23#0" expanded="true" />
           </folding>

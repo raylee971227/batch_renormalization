@@ -1,6 +1,5 @@
 import tensorflow as tf
-import keras
-from keras import Layer
+from keras.layers import Layer
 from keras.models import Sequential
 from keras.utils import np_utils
 from keras.preprocessing.image import ImageDataGenerator
@@ -11,9 +10,11 @@ from keras import regularizers, optimizers
 from keras.utils import multi_gpu_model
 import numpy as np
 
+
 class BatchRenorm(Layer):
-    def __init__(self, input, training, r_max, d_max, momentum=0.99, microbatch_size, epsilon):
-        self.channels = input.shape[-1]
+    def __init__(self, training=True, microbatch_size=1, r_max=3., d_max=5., epsilon=1e-3, momentum=0.99):
+        super(BatchRenorm, self).__init__()
+        self.channels = input_shape[-1]
         self.training = training
         self.microbatch_size = microbatch_size
         self.r_max = r_max
@@ -34,20 +35,17 @@ class BatchRenorm(Layer):
         '''
             tf.cond(true or false, true function, false function)
         '''
-        result = tf.cond(training, lambda: self.train(input, self.mu, self.sigma, momentum),
+        result = tf.cond(training, lambda: self.train(self.mu, self.sigma, momentum),
                          lambda: self.gamma * ((input - self.mu) / self.sigma) + self.beta)
 
         return result
 
-
-
-    def train(self, input, mu, sigma, alpha):
-    # input -> input matrix
-    # mu -> current moving average
-    # sigma -> current moving standard deviation
-    # alpha -> moving average update rate
-        input_reshaped = tf.reshape(input.shape[0], self.microbatch_size, input.shape[1], input.shape[2],
-                                        input.shape[3])
+    def train(self, input_shape, mu, sigma, alpha):
+        # input -> input matrix
+        # mu -> current moving average
+        # sigma -> current moving standard deviation
+        # alpha -> moving average update rate
+        input_reshaped = tf.reshape(input_shape[0], self.microbatch_size, input_shape[1], input_shape[2], input_shape[3])
         batch_mean, batch_var = tf.nn.moments(input_reshaped, [0, 1, 2, 3], keep_dims=True)
         batch_stddev = tf.sqrt(batch_var)
 
@@ -82,5 +80,4 @@ class BatchRenorm(Layer):
                 y = self.gamma * x_hat + self.beta
 
         return tf.reshape(y, tf.shape(input))
-
 
